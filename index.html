@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b12">
+<title>CINEVERSE — Discover Movies</title>
+<style>
+:root{--bg:#0b0b12;--panel:#13131d;--panel2:#1b1b28;--text:#f5f4fa;--muted:#a5a4b5;--accent:#b89aff;--gold:#ffd166;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#292044 0,transparent 36%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}.wrap{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(11,11,18,.84);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{height:76px;display:flex;align-items:center;gap:28px}.brand{font-weight:950;letter-spacing:1.5px;font-size:1.22rem;white-space:nowrap}.brand span{color:var(--accent)}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:.93rem}.navlinks a:hover{color:white}.searchbox{margin-left:auto;position:relative;max-width:320px;width:100%}.searchbox input{width:100%;padding:12px 15px 12px 40px;background:#171722;border:1px solid var(--line);border-radius:13px;color:white;outline:none}.searchbox input:focus{border-color:var(--accent)}.searchicon{position:absolute;left:14px;top:10px;color:var(--muted)}.menuBtn{display:none;background:transparent;border:1px solid var(--line);color:white;border-radius:10px;padding:9px}
+.hero{padding:55px 0 36px}.heroCard{min-height:365px;border:1px solid var(--line);border-radius:25px;overflow:hidden;position:relative;display:flex;align-items:center;background:linear-gradient(90deg,rgba(12,11,20,.98) 0%,rgba(12,11,20,.88) 43%,rgba(12,11,20,.18) 100%),radial-gradient(ellipse at 75% 45%,#7049a6 0,#2c2554 25%,#11121f 57%,#0c0c13 75%);padding:clamp(25px,5vw,62px)}
+.heroCard:after{content:"";position:absolute;right:7%;top:10%;width:290px;height:290px;border-radius:50%;background:linear-gradient(135deg,#f8c77d,#9e70ff 60%,#23254e);filter:blur(1px);opacity:.8;box-shadow:0 0 100px #8e65e755}
+.heroContent{position:relative;z-index:1;max-width:570px}.eyebrow{color:var(--accent);font-size:.78rem;letter-spacing:2px;font-weight:800;text-transform:uppercase}.hero h1{font-size:clamp(2.2rem,5vw,4.4rem);line-height:.98;letter-spacing:-2px;margin:15px 0}.hero p{color:#c7c5d4;max-width:490px;line-height:1.7}.meta{display:flex;gap:13px;align-items:center;flex-wrap:wrap;color:#d6d3e3;font-size:.9rem;margin:17px 0}.rating{color:var(--gold);font-weight:800}.pill{border:1px solid #ffffff24;border-radius:99px;padding:5px 10px;font-size:.78rem;color:#dedbe9}.actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:22px}.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:750;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .15s}.btn:hover{transform:translateY(-2px)}.primary{background:var(--accent);color:#161020}.secondary{background:#ffffff12;color:white;border:1px solid #ffffff20}
+section{padding:22px 0 25px}.sectionHead{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}.sectionHead h2{margin:0;font-size:1.45rem;letter-spacing:-.5px}.sectionHead p{color:var(--muted);margin:6px 0 0;font-size:.9rem}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.chip{border:1px solid var(--line);background:#151520;color:#c5c3d3;border-radius:99px;padding:9px 13px;cursor:pointer;font-size:.85rem}.chip.active,.chip:hover{background:var(--accent);border-color:var(--accent);color:#171020}
+.movieGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.movie{min-width:0;cursor:pointer;transition:transform .2s}.movie:hover{transform:translateY(-5px)}.poster{height:250px;border-radius:15px;overflow:hidden;position:relative;display:flex;align-items:end;padding:15px;background:var(--poster,linear-gradient(135deg,#30234f,#151522));isolation:isolate;border:1px solid #ffffff14}.poster:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,4,10,.92),transparent 75%);z-index:-1}.poster:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #ffffff22;border-radius:50%;right:-65px;top:15px;box-shadow:0 0 0 22px #ffffff08,0 0 0 44px #ffffff05;z-index:-1}.posterWord{font-size:1.3rem;font-weight:950;line-height:1.02;letter-spacing:-.5px;text-shadow:0 2px 12px #000}.posterTag{position:absolute;top:11px;left:11px;background:#0b0b12b8;border:1px solid #ffffff22;padding:5px 8px;border-radius:7px;font-size:.7rem}.movieInfo{padding:11px 2px}.movieTitle{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.movieSub{display:flex;justify-content:space-between;gap:6px;color:var(--muted);font-size:.82rem;margin-top:6px}.movieSub .rating{font-size:.82rem}.empty{display:none;padding:35px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px}
+.genreGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.genre{padding:18px 12px;border-radius:14px;background:linear-gradient(135deg,#1e1b2e,#15151f);border:1px solid var(--line);font-weight:750;text-align:center;cursor:pointer}.genre:hover{border-color:var(--accent);color:var(--accent)}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:30px 0 38px;color:var(--muted);font-size:.87rem}.footerRow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.notice{max-width:700px;line-height:1.65}
+.modal{display:none;position:fixed;inset:0;z-index:50;background:#05050be8;backdrop-filter:blur(9px);padding:20px;overflow:auto;align-items:center;justify-content:center}.modal.open{display:flex}.modalCard{width:min(760px,100%);background:#14141f;border:1px solid var(--line);border-radius:22px;overflow:hidden;position:relative}.modalTop{padding:28px;background:var(--modalbg,linear-gradient(120deg,#31234e,#151522));min-height:185px;display:flex;align-items:end}.modalTop h2{font-size:2rem;margin:0}.modalBody{padding:24px}.modalBody p{color:#c3c1d0;line-height:1.7}.close{position:absolute;right:14px;top:14px;border:1px solid #ffffff35;background:#09091099;color:white;border-radius:50%;width:38px;height:38px;font-size:1.25rem;cursor:pointer}.detailMeta{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0}
+@media(max-width:950px){.movieGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.poster{height:230px}.genreGrid{grid-template-columns:repeat(3,1fr)}.heroCard:after{right:-3%;opacity:.45}}
+@media(max-width:700px){.nav{height:66px;gap:12px}.navlinks{display:none}.menuBtn{display:block}.searchbox{max-width:none}.brand{font-size:1.02rem}.hero{padding-top:24px}.heroCard{min-height:400px;padding:25px}.heroCard:after{width:200px;height:200px;top:8%;right:-15%;opacity:.28}.hero h1{letter-spacing:-1px}.movieGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.poster{height:245px}.genreGrid{grid-template-columns:repeat(2,1fr)}.sectionHead{align-items:start;flex-direction:column}.searchbox input{padding:10px 10px 10px 33px}.searchicon{left:10px;top:8px}}
+@media(max-width:380px){.brand{font-size:.9rem}.searchbox{max-width:145px}.poster{height:210px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="#"><span>✦</span> CINEVERSE</a>
+  <nav class="navlinks"><a href="#home">Home</a><a href="#movies">Movies</a><a href="#genres">Genres</a><a href="#about">About</a></nav>
+  <div class="searchbox"><span class="searchicon">⌕</span><input id="search" type="search" placeholder="Search movies..." aria-label="Search movies"></div>
+  <button class="menuBtn" id="menuBtn" aria-label="Show navigation">☰</button>
+</div></header>
+<main class="wrap">
+<section class="hero" id="home">
+  <div class="heroCard"><div class="heroContent">
+    <div class="eyebrow">Your next movie night starts here</div>
+    <h1>Stories that<br>stay with you.</h1>
+    <p>Explore films from around the world. Find your next favourite with movie details, ratings, genres and official trailer links.</p>
+    <div class="meta"><span class="pill">Bengali</span><span class="pill">Hindi</span><span class="pill">Hollywood</span><span class="pill">South Indian</span></div>
+    <div class="actions"><a class="btn primary" href="#movies">✦ Explore Movies</a><a class="btn secondary" href="#genres">Browse Genres →</a></div>
+  </div></div>
+</section>
+<section id="movies">
+  <div class="sectionHead"><div><h2>Discover Movies</h2><p>Find a film for every mood.</p></div><span id="count" class="pill">15 titles</span></div>
+  <div class="filters" id="filters">
+    <button class="chip active" data-filter="All">All Movies</button><button class="chip" data-filter="Bengali">Bengali</button><button class="chip" data-filter="Hindi">Hindi</button><button class="chip" data-filter="Hollywood">Hollywood</button><button class="chip" data-filter="South Indian">South Indian</button><button class="chip" data-filter="Animation">Animation</button>
+  </div>
+  <div class="movieGrid" id="movieGrid"></div><div class="empty" id="empty">No movies found. Try another search or category.</div>
+</section>
+<section id="genres">
+  <div class="sectionHead"><div><h2>Browse by Genre</h2><p>Pick a vibe, find a story.</p></div></div>
+  <div class="genreGrid">
+    <button class="genre" data-genre="Action">⚡ Action</button><button class="genre" data-genre="Drama">🎭 Drama</button><button class="genre" data-genre="Comedy">☀ Comedy</button><button class="genre" data-genre="Thriller">🕵 Thriller</button><button class="genre" data-genre="Sci-Fi">🚀 Sci-Fi</button><button class="genre" data-genre="Romance">♥ Romance</button>
+  </div>
+</section>
+</main>
+<footer id="about"><div class="wrap footerRow"><div><a class="brand" href="#"><span>✦</span> CINEVERSE</a><p>Discover. Explore. Enjoy the story.</p></div><div class="notice"><strong>About this demo</strong><br>This is a free, static movie-discovery website template. Movie entries are demo content; trailer buttons search for official or authorized sources. This site does not host or provide unauthorized copies of copyrighted films.</div><div>© <span id="year"></span> CINEVERSE</div></div></footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modalCard"><button class="close" id="closeModal" aria-label="Close">×</button><div class="modalTop" id="modalTop"><div><div class="eyebrow">Movie details</div><h2 id="modalTitle"></h2></div></div><div class="modalBody"><div class="detailMeta" id="detailMeta"></div><p id="modalDesc"></p><div class="actions"><a id="trailerLink" class="btn primary" target="_blank" rel="noopener noreferrer">▶ Find Trailer</a><button class="btn secondary" id="modalClose2">Close</button></div></div></div></div>
+<script>
+const movies = [
+ {title:"Monsoon Letters",year:2024,language:"Bengali",genre:"Drama",rating:"8.1",tag:"EDITOR'S PICK",colors:["#75445e","#1d263e"],desc:"A heartfelt fictional drama about family, memory and the small moments that change a life."},
+ {title:"Midnight Run",year:2025,language:"Hindi",genre:"Thriller",rating:"7.8",tag:"THRILLER",colors:["#a94c2b","#21162b"],desc:"A tense fictional thriller set across one restless night in a sprawling city."},
+ {title:"Beyond the Stars",year:2025,language:"Hollywood",genre:"Sci-Fi",rating:"8.6",tag:"FEATURED",colors:["#6e58b5","#101c3b"],desc:"An original science-fiction concept about a crew searching for a new home among distant stars."},
+ {title:"The Last Signal",year:2023,language:"Hollywood",genre:"Action",rating:"7.9",tag:"ACTION",colors:["#b04e32","#20223c"],desc:"A fictional action adventure where a missing signal may hold the key to stopping a global crisis."},
+ {title:"Chai & Chapters",year:2024,language:"Hindi",genre:"Romance",rating:"7.5",tag:"ROMANCE",colors:["#bd8150","#452d48"],desc:"A warm fictional romance about two strangers who meet in a little bookshop café."},
+ {title:"River of Blue",year:2022,language:"Bengali",genre:"Drama",rating:"8.0",tag:"DRAMA",colors:["#367e8b","#172f4a"],desc:"A quiet fictional story of hope and resilience in a riverside community."},
+ {title:"City of Echoes",year:2025,language:"South Indian",genre:"Thriller",rating:"8.2",tag:"MYSTERY",colors:["#7560a8","#19182b"],desc:"A fictional mystery in which a determined investigator follows clues hidden in an old city."},
+ {title:"Laughing Planet",year:2024,language:"Animation",genre:"Comedy",rating:"7.7",tag:"FAMILY",colors:["#5d9d7c","#1e3450"],desc:"A playful fictional animated adventure about unlikely friends trying to save their colourful world."},
+ {title:"Iron Monsoon",year:2023,language:"South Indian",genre:"Action",rating:"8.3",tag:"ACTION",colors:["#a64a36","#25202b"],desc:"A fictional action drama about courage, loyalty and a town standing up for itself."},
+ {title:"Paper Moons",year:2021,language:"Hollywood",genre:"Romance",rating:"7.6",tag:"ROMANCE",colors:["#6e78a8","#28233d"],desc:"A fictional romantic drama about second chances and a promise made beneath the night sky."},
+ {title:"The Green Comet",year:2025,language:"Animation",genre:"Sci-Fi",rating:"8.4",tag:"ANIMATION",colors:["#579d8e","#152e44"],desc:"An original animated sci-fi tale following a curious inventor on an intergalactic journey."},
+ {title:"Silent Verdict",year:2022,language:"Hindi",genre:"Thriller",rating:"7.9",tag:"SUSPENSE",colors:["#8a6b51","#26202a"],desc:"A fictional courtroom thriller where one overlooked detail changes everything."},
+ {title:"Golden Hour",year:2024,language:"Bengali",genre:"Romance",rating:"7.8",tag:"ROMANCE",colors:["#d48b58","#563d4b"],desc:"A fictional romantic story about finding new beginnings in familiar places."},
+ {title:"Wild Circuit",year:2025,language:"Hollywood",genre:"Action",rating:"8.0",tag:"ADVENTURE",colors:["#4b81a1","#19253d"],desc:"A high-energy fictional adventure about a daring team racing against the clock."},
+ {title:"A Little Elsewhere",year:2023,language:"South Indian",genre:"Comedy",rating:"7.4",tag:"COMEDY",colors:["#c17a58","#4c3551"],desc:"A light fictional comedy about a chaotic road trip and the friends made along the way."}
+];
+let activeFilter="All", activeGenre="";
+const grid=document.getElementById("movieGrid"), search=document.getElementById("search");
+function posterStyle(m){return `linear-gradient(145deg, ${m.colors[0]}, ${m.colors[1]} 78%)`}
+function render(){
+ const q=search.value.trim().toLowerCase();
+ const filtered=movies.filter(m=>(activeFilter==="All"||m.language===activeFilter)&&(!activeGenre||m.genre===activeGenre)&&(`${m.title} ${m.year} ${m.language} ${m.genre}`.toLowerCase().includes(q)));
+ grid.innerHTML=filtered.map((m)=>`<article class="movie" tabindex="0" role="button" aria-label="Details for ${m.title}" data-title="${m.title}"><div class="poster" style="--poster:${posterStyle(m)}"><span class="posterTag">${m.tag}</span><span class="posterWord">${m.title}</span></div><div class="movieInfo"><div class="movieTitle">${m.title}</div><div class="movieSub"><span>${m.year} · ${m.language}</span><span class="rating">★ ${m.rating}</span></div></div></article>`).join("");
+ document.getElementById("count").textContent=`${filtered.length} ${filtered.length===1?"title":"titles"}`;
+ document.getElementById("empty").style.display=filtered.length?"none":"block";
+ grid.querySelectorAll(".movie").forEach(el=>{const open=()=>showMovie(movies.find(m=>m.title===el.dataset.title));el.addEventListener("click",open);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}})});
+}
+function showMovie(m){
+ if(!m)return;
+ document.getElementById("modalTitle").textContent=m.title;
+ document.getElementById("modalTop").style.setProperty("--modalbg",posterStyle(m));
+ document.getElementById("detailMeta").innerHTML=`<span class="pill">${m.year}</span><span class="pill">${m.language}</span><span class="pill">${m.genre}</span><span class="pill rating">★ ${m.rating}</span>`;
+ document.getElementById("modalDesc").textContent=m.desc;
+ document.getElementById("trailerLink").href="https://www.youtube.com/results?search_query="+encodeURIComponent(m.title+" official trailer");
+ document.getElementById("modal").classList.add("open");document.body.style.overflow="hidden";
+}
+function closeModal(){document.getElementById("modal").classList.remove("open");document.body.style.overflow=""}
+document.getElementById("filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(!b)return;activeFilter=b.dataset.filter;activeGenre="";document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll("[data-genre]").forEach(x=>x.style.borderColor="");render()});
+document.querySelectorAll("[data-genre]").forEach(b=>b.addEventListener("click",()=>{activeGenre=activeGenre===b.dataset.genre?"":b.dataset.genre;activeFilter="All";document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x.dataset.filter==="All"));document.querySelectorAll("[data-genre]").forEach(x=>x.style.borderColor=x===b&&activeGenre?"var(--accent)":"");document.getElementById("movies").scrollIntoView({behavior:"smooth"});render()}));
+search.addEventListener("input",render);
+document.getElementById("closeModal").addEventListener("click",closeModal);document.getElementById("modalClose2").addEventListener("click",closeModal);
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+document.getElementById("menuBtn").addEventListener("click",()=>{const nav=document.querySelector(".navlinks");const open=nav.style.display==="flex";nav.style.display=open?"none":"flex";if(!open){nav.style.position="absolute";nav.style.top="65px";nav.style.left="4%";nav.style.right="4%";nav.style.padding="16px";nav.style.background="#171722";nav.style.border="1px solid var(--line)";nav.style.borderRadius="12px";nav.style.flexDirection="column"}});
+document.getElementById("year").textContent=new Date().getFullYear();render();
+</script>
+</body></html>
